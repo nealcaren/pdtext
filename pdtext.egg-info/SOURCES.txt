@@ -2,8 +2,10 @@ setup.cfg
 setup.py
 pdtext/__init__.py
 pdtext/helpers.py
+pdtext/io.py
+pdtext/slugify.py
+pdtext/tm.py
 pdtext/tools.py
-pdtext/topic_models.py
 pdtext.egg-info/PKG-INFO
 pdtext.egg-info/SOURCES.txt
 pdtext.egg-info/dependency_links.txt
