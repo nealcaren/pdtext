@@ -13,7 +13,7 @@ def topic_words(lda_model, vectorizer ):
     word_topic_scores = lda_model.components_.T
     vocabulary        = vectorizer.get_feature_names()
 
-    number_of_topics = lda.get_params()['n_components']
+    number_of_topics = lda_model.get_params()['n_components']
     column_names = ['Topic %s' % i for i in range(1, number_of_topics + 1)]
 
     topic_words_df = pd.DataFrame(word_topic_scores,
