@@ -18,7 +18,7 @@ def locate(url, directory = 'html'):
 
 def open_html(url, directory = 'html'):
     """Attempt to open a file based on the url."""
-    location = locate(url)
+    location = locate(url, directory)
 
     with open(location, "r") as infile:
         html = infile.read()
