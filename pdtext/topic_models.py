@@ -3,9 +3,11 @@ import pandas as pd
 
 
 
-def topic_words(lda_model, vectorizer):
-    '''
-    Generate dataframe of words associated with a topic model.
+def topic_words(lda_model= lda_model, vectorizer = vectorizer):
+    '''Generate  a pandas dataframe of words associated with a scikit-learn topic model.
+    Keyword arguments:
+    lda_model  -- fitted lda model (default = lda_model)
+    vectorizer -- fitted scikit-learn vectorizer used to construct word frequencies used in the topic model.
     '''
 
     word_topic_scores = lda_model.components_.T
