@@ -27,7 +27,8 @@ def open_html(url, directory = 'html'):
 
 def get_html(url, directory, pause):
     """Download & save html text using the url to create the filename."""
-    pause(pause)
+
+    sleep(pause)
     r = requests.get(url)
     html = r.text
 
@@ -40,7 +41,7 @@ def get_html(url, directory, pause):
 
 
 def retrieve_html(url, directory = 'html', pause = 1):
-    '''
+    '''Attempt to load html file locally. If that doesn't work, download and save it first.'''
     try:
         return open_html(url, directory)
     except:
