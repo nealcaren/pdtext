@@ -1,4 +1,6 @@
 from . import helpers
+import pandas as pd
+
 
 
 def topic_words(lda_model, vectorizer):
