@@ -1,14 +1,14 @@
 from time import sleep
 from .slugify import slugify
 import requests
-from os.path import isdir
-from os import mkdir
+import os
+
 
 def locate(url, directory = 'html'):
     '''Create file name and place in directory'''
 
     # check directory
-    if isdir(directory) == False:
+    if os.path.isdir(directory) == False:
         print("HTML directory does not exist. Being created.")
         os.mkdir(directory)
 
