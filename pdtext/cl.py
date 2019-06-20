@@ -1,7 +1,5 @@
 import numpy as np
-
-
-import numpy as np
+import pandas as pd
 
 
 def class_words(classifier, vectorizer, nlargest = 5):
