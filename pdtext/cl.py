@@ -14,7 +14,7 @@ def class_words(classifier, vectorizer, nlargest = 5):
     '''
 
 
-    word_df = pd.DataFrame(np.matrix.transpose(classifer.coef_),
+    word_df = pd.DataFrame(np.matrix.transpose(classifier.coef_),
                  columns = classifer.classes_,
                  )
 
