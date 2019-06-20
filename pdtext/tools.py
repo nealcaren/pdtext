@@ -9,6 +9,7 @@ def sentences(text):
     df = pd.Series(sentences)
     return sentences
 
+
 def tokens_to_rows(df_column):
     '''
     Takes an iterable column of a datframe and returns a dataframe
