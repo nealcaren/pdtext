@@ -1,4 +1,3 @@
-from . import helpers
 import pandas as pd
 
 
@@ -9,6 +8,13 @@ def topic_words(lda_model, vectorizer, ntokens = 10):
     lda_model  -- fitted lda model
     vectorizer -- fitted scikit-learn vectorizer used to construct word frequencies used in the topic model.
     '''
+
+
+    def column_swap(column):
+        column = column.sort_values(ascending = False)
+        return column.index
+
+
 
     word_topic_scores = lda_model.components_.T
     vocabulary        = vectorizer.get_feature_names()
@@ -23,7 +29,7 @@ def topic_words(lda_model, vectorizer, ntokens = 10):
                                   columns = column_names)
 
     # Resort so each column is sorted by word_topic_score
-    topic_words_df = topic_words_df.apply(helpers.column_swap).reset_index(drop = True).rename_axis('rank')
+    topic_words_df = topic_words_df.apply(column_swap).reset_index(drop = True).rename_axis('rank')
 
     # start at 1, not zero for rank
     topic_words_df.index = topic_words_df.index + 1
