@@ -4,6 +4,7 @@ pdtext/__init__.py
 pdtext/cl.py
 pdtext/io.py
 pdtext/slugify.py
+pdtext/sp.py
 pdtext/tf.py
 pdtext/tm.py
 pdtext/tools.py
