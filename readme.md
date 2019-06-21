@@ -5,7 +5,8 @@
 To install:
 <code>pip install git+https://github.com/nealcaren/pdtext</code>
 
-*Tools*
-tm.topic_words: Generate pandas dataframe of words associated with a topic model given an scikit-learn lda model and a word count vectorizer.
-
-io.retrieve_html: Attempts to load a web page locally. If it doesn't exist, retrieve it and store locally.
+Notes to self on micro-development updates:
+1. Edit code
+2. <code> python setup.py bdist_wheel</code>
+3. Push changes to github
+4. <code>pip install --upgrade --force-reinstall --no-deps  git+https://github.com/nealcaren/pdtext</code>
