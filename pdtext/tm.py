@@ -1,5 +1,23 @@
 import pandas as pd
+import numpy as np
 
+def topic_pred(lda_model, tf, vectorizer):
+
+    '''returns a dataframe with topic predictions.'''
+
+    # Column names based on top three topics
+    # source: https://stackoverflow.com/questions/44208501/getting-topic-word-distribution-from-lda-in-scikit-learn
+    vocab = vectorizer.get_feature_names()
+    feature_names = []
+    for topic, comp in enumerate(lda_model.components_):
+        word_idx = np.argsort(comp)[::-1][:3]
+        name = '_'.join([vocab[i] for i in word_idx])
+        feature_names.append(name)
+
+    lda_predictions = lda_model.transform(tf)
+    df = pd.DataFrame(lda_predictions, columns=feature_names)
+
+    return df
 
 
 def topic_words(lda_model, vectorizer, ntokens = 10):
@@ -9,31 +27,21 @@ def topic_words(lda_model, vectorizer, ntokens = 10):
     vectorizer -- fitted scikit-learn vectorizer used to construct word frequencies used in the topic model.
     '''
 
+    # source: https://stackoverflow.com/questions/44208501/getting-topic-word-distribution-from-lda-in-scikit-learn
+    vocab = vectorizer.get_feature_names()
 
-    def column_swap(column):
-        column = column.sort_values(ascending = False)
-        return column.index
+    # Get most common words for each topic and store in df column
+    df = pd.DataFrame()
+    for topic, comp in enumerate(lda_model.components_):
+        column_name = 'Topic %s' % (topic + 1)
+
+        word_idx = np.argsort(comp)[::-1][:ntokens]
+        topic_words = [vocab[i] for i in word_idx]
+        df[column_name] = topic_words
+
+    # reindex so first word has a rank of 1 and return tranposed for readability
+    df.index +=1
+    df = df.T
 
 
-
-    word_topic_scores = lda_model.components_.T
-    vocabulary        = vectorizer.get_feature_names()
-
-    # Column names based on number of topics
-    number_of_topics = lda_model.get_params()['n_components']
-    column_names = ['Topic %s' % i for i in range(1, number_of_topics + 1)]
-
-    #data frame of words and scores by topic
-    topic_words_df = pd.DataFrame(word_topic_scores,
-                                  index = vocabulary,
-                                  columns = column_names)
-
-    # Resort so each column is sorted by word_topic_score
-    topic_words_df = topic_words_df.apply(column_swap).reset_index(drop = True).rename_axis('rank')
-
-    # start at 1, not zero for rank
-    topic_words_df.index = topic_words_df.index + 1
-
-    topic_words_df = topic_words_df.head(ntokens).T
-
-    return topic_words_df
+    return df
