@@ -11,6 +11,9 @@ def sentences(text):
     return sentences
 
 
+import pandas as import pd
+
+
 def tokens_to_rows(df_column):
     """
     Takes an iterable column of a datframe and returns a dataframe

@@ -3,6 +3,7 @@ setup.py
 pdtext/__init__.py
 pdtext/cl.py
 pdtext/io.py
+pdtext/np.py
 pdtext/slugify.py
 pdtext/sp.py
 pdtext/tf.py
