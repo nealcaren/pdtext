@@ -3,7 +3,6 @@
 
 from sklearn.feature_extraction.text import CountVectorizer
 import pandas as pd
-
 from string import punctuation
 
 def word_count(text, include_numbers = True):

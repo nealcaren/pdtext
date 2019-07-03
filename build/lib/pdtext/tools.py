@@ -1,3 +1,7 @@
+import pandas as pd
+
+
+
 def clean_string(string):
     return string.strip("""!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~""").lower()
 
@@ -9,9 +13,6 @@ def sentences(text):
         sentences.append(s.text)
     df = pd.Series(sentences)
     return sentences
-
-
-import pandas as import pd
 
 
 def tokens_to_rows(df_column):
