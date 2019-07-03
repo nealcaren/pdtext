@@ -3,20 +3,21 @@
 
 from sklearn.feature_extraction.text import CountVectorizer
 import pandas as pd
-import re
 
+from string import punctuation
 
-def word_count(text, tokenizer="(\w[\w']*\w|\w)"):
+def word_count(text, include_numbers = True):
 
-    # Split words, counting contractions as one word
-    rgx = re.compile(tokenizer)
+    '''Count number of words in a string.
+    text = string to count.
+    include_numbers = Boolean on whether to include numbers as words.
+    '''
 
-    try:
-        # it it is a string
-        return len(rgx.findall(text))
-    except:
-        # If it is a pandas column
-        return text.apply(rgx.findall).str.len()
+    if include_numbers == True:
+        return sum([len(w.strip(punctuation))>0 for w in text.split()])
+    else:
+        return sum([w.strip(punctuation).isalpha() for w in text.split()])
+
 
 
 def make_wf_df(text_column, summary=False, **kwargs):
