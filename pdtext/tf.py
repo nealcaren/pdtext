@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 import pandas as pd
 from string import punctuation
 
@@ -19,21 +19,30 @@ def word_count(text, include_numbers = True):
 
 
 
-def make_wf_df(text_column, summary=False, **kwargs):
-    vectorizer = CountVectorizer(**kwargs, token_pattern=r"(?u)\b\w+\b")
+def make_wf_df(text_column, summary=False, melt=False, tfidf = False, **kwargs):
+    if tfidf == True:
+        vectorizer = TfidfVectorizer(**kwargs, token_pattern=r"(?u)\b\w+\b")
+    else:
+        vectorizer = CountVectorizer(**kwargs, token_pattern=r"(?u)\b\w+\b")
 
     wf = vectorizer.fit_transform(text_column)
 
-    index = text_column.index
+    if type(text_column) == pd.core.series.Series:
+        index_column = text_column.index
+    else:
+        index_column = range(0,len(text_column))
 
     word_freq_df = pd.DataFrame(
-        wf.toarray(), columns=vectorizer.get_feature_names(), index=index
+        wf.toarray(), columns=vectorizer.get_feature_names(), index = index_column
     )
-    if summary == False:
-        return word_freq_df
 
-    summary_df = word_freq_df.sum().sort_values(ascending=False)
-    return summary_df
+    if summary == True:
+         return word_freq_df.sum().sort_values(ascending=False)
 
 
-# In[ ]:
+    if melt == True:
+        return pd.melt(word_freq_df)
+
+    word_freq_df.index = text_column
+
+    return word_freq_df
