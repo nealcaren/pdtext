@@ -1,6 +1,6 @@
 Metadata-Version: 1.0
 Name: pdtext
-Version: 0.3.0
+Version: 0.1.2
 Summary: Helper functions for working with text in pandas
 Home-page: https://github.com/nealcaren/pdtext
 Author: Neal Caren
